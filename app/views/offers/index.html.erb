@@ -4,6 +4,7 @@
   <thead>
     <tr>
       <th>Descrição</th>
+      <th>Usuário</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -12,14 +13,18 @@
     <% @offers.each do |offer| %>
       <tr>
         <td><%= offer.description %></td>
+        <td><%= offer.user.email if offer.user %></td>
         <td><%= link_to 'Mostrar', offer %></td>
-        <td><%= link_to 'Editar', edit_offer_path(offer) %></td>
-        <td><%= link_to 'Excluir', offer, method: :delete, data: { confirm: 'Você tem certeza?' } %></td>
+        <% if offer.user == current_user %>
+          <td><%= link_to 'Editar', edit_offer_path(offer) %></td>
+          <td><%= link_to 'Excluir', offer, method: :delete, data: { confirm: 'Você tem certeza?' } %></td>
+        <% end %>
       </tr>
     <% end %>
   </tbody>
 </table>
 
 <br>
-
-<%= link_to 'Nova Oferta', new_offer_path %>
+<% if user_signed_in? %>
+  <%= link_to 'Nova Oferta', new_offer_path %>
+<% end %>

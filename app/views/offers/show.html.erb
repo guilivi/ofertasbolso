@@ -5,5 +5,7 @@
   <%= @offer.description %>
 </p>
 
+<% if @offer.user == current_user %>
 <%= link_to 'Editar', edit_offer_path(@offer) %> |
+<% end %>
 <%= link_to 'Voltar', offers_path %>

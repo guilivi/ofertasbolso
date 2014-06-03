@@ -1,5 +1,7 @@
 class OffersController < ApplicationController
   before_action :set_offer, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!, except: [:index, :show]
+  before_action :correct_user, only: [:edit, :update, :destroy]
 
 
   def index
@@ -10,15 +12,14 @@ class OffersController < ApplicationController
   end
 
   def new
-    @offer = Offer.new
+    @offer = current_user.offers.build
   end
 
   def edit
   end
 
   def create
-    @offer = Offer.new(offer_params)
-
+    @offer = current_user.offers.build(offer_params)
       if @offer.save
         redirect_to @offer, notice: 'Oferta criada com sucesso.'
       else
@@ -31,19 +32,24 @@ class OffersController < ApplicationController
         redirect_to @offer, notice: 'Oferta atualizada com sucesso.'
       else
         render :edit
+      end
   end
 
 
   def destroy
     @offer.destroy
-      redirect_to offers_url, notice: 'Oferta excluída com sucesso.'
-    end
+    redirect_to offers_url, notice: 'Oferta excluída com sucesso.'
   end
 
   private
 
     def set_offer
       @offer = Offer.find(params[:id])
+    end
+
+    def correct_user
+      @offer = current_user.offers.find_by(id: params[:id])
+      redirect_to offers_path, notice: "Você não tem autorização para editar esta oferta" if @offer.nil?
     end
 
 

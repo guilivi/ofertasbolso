@@ -35,7 +35,7 @@ class LojasController < ApplicationController
 
   def destroy
     @loja.destroy
-      edirect_to lojas_url, notice: 'Loja was successfully destroyed.'
+    edirect_to lojas_url, notice: 'Loja was successfully destroyed.'
     end
   end
 
