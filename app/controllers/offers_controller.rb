@@ -1,7 +1,8 @@
 class OffersController < ApplicationController
   before_action :set_offer, only: [:show, :edit, :update, :destroy]
-  before_action :authenticate_user!, except: [:index, :show]
   before_action :correct_user, only: [:edit, :update, :destroy]
+  before_action :authenticate_user!, except: [:index, :show]
+  
 
 
   def index
@@ -54,6 +55,6 @@ class OffersController < ApplicationController
 
 
     def offer_params
-      params.require(:offer).permit(:description)
+      params.require(:offer).permit(:description, :image)
     end
 end

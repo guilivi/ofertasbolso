@@ -3,6 +3,7 @@
 <table>
   <thead>
     <tr>
+      <th>Imagem</th>
       <th>Descrição</th>
       <th>Usuário</th>
       <th colspan="3"></th>
@@ -12,6 +13,7 @@
   <tbody>
     <% @offers.each do |offer| %>
       <tr>
+        <td><%= image_tag offer.image.url(:medium) %></td>
         <td><%= offer.description %></td>
         <td><%= offer.user.email if offer.user %></td>
         <td><%= link_to 'Mostrar', offer %></td>
