@@ -1,32 +1,17 @@
-<h3>Lista de Ofertas</h3>
-
-<table>
-  <thead>
-    <tr>
-      <th>Imagem</th>
-      <th>Descrição</th>
-      <th>Usuário</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @offers.each do |offer| %>
-      <tr>
-        <td><%= image_tag offer.image.url(:medium) %></td>
-        <td><%= offer.description %></td>
-        <td><%= offer.user.email if offer.user %></td>
-        <td><%= link_to 'Mostrar', offer %></td>
-        <% if offer.user == current_user %>
-          <td><%= link_to 'Editar', edit_offer_path(offer) %></td>
-          <td><%= link_to 'Excluir', offer, method: :delete, data: { confirm: 'Você tem certeza?' } %></td>
-        <% end %>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-<% if user_signed_in? %>
-  <%= link_to 'Nova Oferta', new_offer_path %>
+  
+<div id="offers" class="transitions-enabled">
+  <% @offers.each do |offer| %>
+  <div class="box panel panel-default">
+    <%= image_tag offer.image.url(:medium) %>
+    <div class="panel-body">
+      <%= offer.description %>
+      <%= offer.user.email if offer.user %>
+      <%= link_to 'Mostrar', offer %>
+      <% if offer.user == current_user %>
+        <%= link_to 'Editar', edit_offer_path(offer) %>
+        <%= link_to 'Excluir', offer, method: :delete, data: { confirm: 'Você tem certeza?' } %>
+      <% end %>
+    </div>
+</div>
 <% end %>
+</div>
