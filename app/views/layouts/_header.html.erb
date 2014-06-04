@@ -17,16 +17,24 @@
         <li><%= link_to "Lojas", store_path %></li>
         <li><%= link_to "Categorias", "#" %></li>
         <li><%= link_to "Sobre nós", about_path %></li>
-        <li><%= link_to "Minha Conta", edit_user_registration_path %></li>
+        
         <% if user_signed_in? %>
+        <% unless admin_signed_in? %>
+        <li><%= link_to "Minha Conta", edit_user_registration_path %></li>
+          <li><%= link_to "Sair", destroy_user_session_path, method: :delete %></li>
+        <% else %>
+          <li><%= link_to "Entrar", new_user_session_path %></li>
+        <% end %>
+        <% end %>
+
+        <% if admin_signed_in? %>
+        <li><%= link_to "Minha Conta", edit_admin_registration_path %></li>
         <li>
             <%= link_to new_offer_path do %>
               <span class="glyphicon glyphicon-plus"></span> Nova Oferta
             <% end %>
-          </li>
-          <li><%= link_to "Sair", destroy_user_session_path, method: :delete %></li>
-        <% else %>
-          <li><%= link_to "Entrar", new_user_session_path %></li>
+        </li>
+        <li><%= link_to "Sair", destroy_admin_session_path, method: :delete %></li>
         <% end %>
       </ul>
     </div><!-- /.navbar-collapse -->

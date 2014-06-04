@@ -13,14 +13,14 @@ class OffersController < ApplicationController
   end
 
   def new
-    @offer = current_user.offers.build
+    @offer = current_admin.offers.build
   end
 
   def edit
   end
 
   def create
-    @offer = current_user.offers.build(offer_params)
+    @offer = current_admin.offers.build(offer_params)
       if @offer.save
         redirect_to @offer, notice: 'Oferta criada com sucesso.'
       else
@@ -48,8 +48,8 @@ class OffersController < ApplicationController
       @offer = Offer.find(params[:id])
     end
 
-    def correct_user
-      @offer = current_user.offers.find_by(id: params[:id])
+    def correct_admin
+      @offer = current_admin.offers.find_by(id: params[:id])
       redirect_to offers_path, notice: "Você não tem autorização para editar esta oferta" if @offer.nil?
     end
 

@@ -1,4 +1,4 @@
-<%= render 'pages/home' unless user_signed_in? %>  
+<%= render 'pages/home' unless user_signed_in? or admin_signed_in? %>  
 
 <div id="offers" class="transitions-enabled">
   <% @offers.each do |offer| %>
@@ -6,10 +6,10 @@
     <%= link_to image_tag(offer.image.url(:medium)), offer %>
     <div class="panel-body">
       <p><%= offer.description %></p>
-      <p><strong><%= offer.user.name if offer.user %></strong></p>
+      <p><strong><%= offer.admin.name if offer.admin %></strong></p>
       
       
-      <% if offer.user == current_user %>
+      <% if offer.admin == current_admin %>
         <div class="actions">
             <%= link_to edit_offer_path(offer) do %>
               <span class="glyphicon glyphicon-edit"></span>
