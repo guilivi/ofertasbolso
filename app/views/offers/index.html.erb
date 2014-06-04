@@ -6,7 +6,7 @@
     <%= link_to image_tag(offer.image.url(:medium)), offer %>
     <div class="panel-body">
       <p><%= offer.description %></p>
-      <p><strong><%= offer.user.email if offer.user %></strong></p>
+      <p><strong><%= offer.user.name if offer.user %></strong></p>
       
       
       <% if offer.user == current_user %>

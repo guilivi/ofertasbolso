@@ -8,7 +8,7 @@
 		</div>
 		<div class="panel-body">
 		<p><%= @offer.description %></p>
-		<p><strong><%= @offer.user.email if @offer.user %></strong></p>
+		<p><strong><%= @offer.user.name if @offer.user %></strong></p>
 
 		<% if @offer.user == current_user %>
    			<%= link_to edit_offer_path(@offer) do %>
