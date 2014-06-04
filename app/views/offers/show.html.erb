@@ -1,11 +1,22 @@
-<%= image_tag @offer.image.url(:medium) %>
-
-<p>
-  <strong>Descrição:</strong>
-  <%= @offer.description %>
-</p>
-
-<% if @offer.user == current_user %>
-<%= link_to 'Editar', edit_offer_path(@offer) %> |
-<% end %>
 <%= link_to 'Voltar', offers_path %>
+
+<div class="row">
+	<div class="col-md-offset-2 col-md-8">
+		<div class="panel panel-default">
+        <div class="panel-heading center">
+			<%= image_tag @offer.image.url(:medium) %>
+		</div>
+		<div class="panel-body">
+		<p><%= @offer.description %></p>
+		<p><strong><%= @offer.user.email if @offer.user %></strong></p>
+
+		<% if @offer.user == current_user %>
+   			<%= link_to edit_offer_path(@offer) do %>
+        		<span class="glyphicon glyphicon-edit"></span>
+             	Editar
+          	<% end %>
+        <% end %>
+	    </div>
+	</div>
+
+</div>

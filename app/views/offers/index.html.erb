@@ -1,16 +1,26 @@
-  
+<%= render 'pages/home' unless user_signed_in? %>  
+
 <div id="offers" class="transitions-enabled">
   <% @offers.each do |offer| %>
   <div class="box panel panel-default">
-    <%= image_tag offer.image.url(:medium) %>
+    <%= link_to image_tag(offer.image.url(:medium)), offer %>
     <div class="panel-body">
-      <%= offer.description %>
-      <%= offer.user.email if offer.user %>
-      <%= link_to 'Mostrar', offer %>
+      <p><%= offer.description %></p>
+      <p><strong><%= offer.user.email if offer.user %></strong></p>
+      
+      
       <% if offer.user == current_user %>
-        <%= link_to 'Editar', edit_offer_path(offer) %>
-        <%= link_to 'Excluir', offer, method: :delete, data: { confirm: 'Você tem certeza?' } %>
-      <% end %>
+        <div class="actions">
+            <%= link_to edit_offer_path(offer) do %>
+              <span class="glyphicon glyphicon-edit"></span>
+              Editar
+            <% end %>
+            <%= link_to offer, method: :delete, data: { confirm: 'Você tem certeza?' } do %>
+              <span class="glyphicon glyphicon-trash"></span>
+              Excluir
+            <% end %>
+          </div>
+        <% end %>
     </div>
 </div>
 <% end %>
